@@ -13,7 +13,7 @@ const renderBoard = () =>{
         row.forEach((square, squareindex) =>{
             const squareElement = document.createElement("div");
             squareElement.classList.add("square", 
-                (rowindex + squareindex)%2 === 0? "Light" : "dark"
+                (rowindex + squareindex)%2 === 0? "light" : "dark"
             );
 
             squareElement.dataset.row = rowindex;
@@ -22,7 +22,7 @@ const renderBoard = () =>{
             if(square){
                 const pieceElement = document.createElement("div");
                 pieceElement.classList.add("piece", square.color === "w" ? "white" : "black");
-                pieceElement.innerText = "";
+                pieceElement.innerText = getPieceUniCode(square);
                 pieceElement.draggable = playerRole === square.color;
 
                 pieceElement.addEventListener("dragstart", (e) =>{
@@ -63,8 +63,30 @@ const renderBoard = () =>{
     });
 }
 
-const handleMove = () =>{}
+const handleMove = () =>{
+    const move ={
+        from: "",
+        to: "",
+        promotion: 'q'
+    }
+}
 
-const getPieceUniCode = () =>{}
+const getPieceUniCode = (piece) => {
+   const unicodePieces = {
+      K: "♔",  
+      Q: "♕",
+      R: "♖",
+      B: "♗",
+      N: "♘",
+      P: "♙",
+      k: "♚", 
+      q: "♛",
+      r: "♜",
+      b: "♝",
+      n: "♞",
+      p: "♟"
+   };
+   return unicodePieces[piece.type] || "";
+};
 
 renderBoard();
