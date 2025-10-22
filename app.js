@@ -38,10 +38,11 @@ io.on("connection", (uniquesocket) =>{
         players.white = uniquesocket.id;
         uniquesocket.emit("playerRole", "w");
     }
-    else if(players.black){
+    else if(!players.black){
         players.black = uniquesocket.id;
-        uniquesocket.emit("playersRole", "b");
-    }
+        uniquesocket.emit("playerRole", "b");
+}
+
     else{
         uniquesocket.emit("spectatorRole");
     }
@@ -59,7 +60,7 @@ io.on("connection", (uniquesocket) =>{
         try{
             if(chess.turn() === "w" && uniquesocket.id !== players.white) 
                 return;
-            if(chess.trun() === "b" && uniquesocket.id !== players.black)
+            if(chess.turn() === "b" && uniquesocket.id !== players.black)
                 return;
 
             const result = chess.move(move);
